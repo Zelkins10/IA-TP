@@ -7,26 +7,31 @@ public class AddBoids : MonoBehaviour
     public Camera cam;
     public GameObject child_object;
     public List<GameObject> children;
-    public int number_of_boids = 12;
-    public int vlim = 10;
+    public int number_of_boids = 100;
+    public float vlim = 0.1f;
     public int distance_min = 5;
+    public float acceptance_radius = 50.0f;
+    public Terrain terrain;
 
     void Start()
     {
         for (int i = 0; i < number_of_boids; i++)
         {
+            Vector2Int positionXY = new Vector2Int(Random.Range(0, terrain.terrainData.heightmapResolution), Random.Range(0, terrain.terrainData.heightmapResolution));
+            Vector2 positionFloat = new Vector2((float)positionXY.x/terrain.terrainData.heightmapResolution*1000.0f-500.0f, (float)positionXY.y/terrain.terrainData.heightmapResolution*1000.0f-500.0f);
             GameObject new_character = Instantiate(
                 child_object,
-                new Vector3(Random.Range(-10.0f, 10.0f), 0.5f, Random.Range(-10.0f, 10.0f)),
+                new Vector3(positionFloat.x, terrain.terrainData.GetHeight(positionXY.x, positionXY.y)+0.5f, positionFloat.y),
                 Quaternion.identity
             );
             new_character.name = i.ToString();
-            new_character.AddComponent<UnityEngine.AI.NavMeshAgent>();
             children.Add(new_character);
         }
         foreach (GameObject child in children)
         {
             BoidsController controller = child.AddComponent<BoidsController>();
+            controller.list_of_boids = children;
+            controller.acceptance_radius = acceptance_radius;
 
             BoidsDestination destination = child.AddComponent<BoidsDestination>();
             destination.cam = cam;

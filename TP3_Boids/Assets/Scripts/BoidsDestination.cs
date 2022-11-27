@@ -6,7 +6,7 @@ public class BoidsDestination : MonoBehaviour
 {
     public Camera cam;
     public GameObject this_boid;
-    private Vector2 position = new Vector2(0.0f, 0.0f);
+    public Vector2 position = new Vector2(0.0f, 0.0f);
 
     public Vector2 Destination()
     {
@@ -20,9 +20,16 @@ public class BoidsDestination : MonoBehaviour
                 position = new Vector2(hit.point.x, hit.point.z);
             }
         }
-        return (
-                position
-                - new Vector2(this_boid.transform.position.x, this_boid.transform.position.z)
-            ) / 1000;
+        if(position != new Vector2(0.0f, 0.0f))
+        {
+            return (
+                    position
+                    - new Vector2(this_boid.transform.position.x, this_boid.transform.position.z)
+                ) / 1000;
+        }
+        else
+        {
+            return new Vector2(0.0f, 0.0f);
+        }
     }
 }

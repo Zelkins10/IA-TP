@@ -5,7 +5,7 @@ using UnityEngine;
 public class BoidsLimitVelocity : MonoBehaviour
 {
     public GameObject this_boid;
-    public int vlim = 10;
+    public float vlim;
 
     public void LimitVelocity()
     {

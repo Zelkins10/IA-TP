@@ -20,6 +20,6 @@ public class BoidsMatchVelocity : MonoBehaviour
         }
         Vmat /= list_of_boids.Count - 1;
         BoidsController this_boid_controller = this_boid.GetComponent<BoidsController>();
-        return (Vmat - this_boid_controller.velocity) / 50;
+        return (Vmat - this_boid_controller.velocity)/20;
     }
 }

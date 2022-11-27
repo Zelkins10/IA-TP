@@ -15,11 +15,7 @@ public class BoidsReduceDistance : MonoBehaviour
         {
             if (boid != this_boid)
             {
-                if (
-                    Mathf.Abs(
-                        Vector3.Distance(boid.transform.position, this_boid.transform.position)
-                    ) < distance_min
-                )
+                if (Vector3.Distance(boid.transform.position, this_boid.transform.position) < distance_min)
                 {
                     Vred -= new Vector2(
                         boid.transform.position.x - this_boid.transform.position.x,
