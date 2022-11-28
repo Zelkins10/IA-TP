@@ -17,11 +17,7 @@ public class BoidsCenterOfMass : MonoBehaviour
         {
             if (boid != this_boid)
             {
-                if (
-                    Mathf.Abs(
-                        Vector3.Distance(boid.transform.position, this_boid.transform.position)
-                    ) < distance_max
-                )
+                if (Vector3.Distance(boid.transform.position, this_boid.transform.position) < distance_max)
                 {
                     Vcen += new Vector2(boid.transform.position.x, boid.transform.position.z);
                     ++count;

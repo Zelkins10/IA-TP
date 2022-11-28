@@ -7,6 +7,7 @@ public class BoidsController : MonoBehaviour
     public Vector2 velocity = new Vector2(0.0f, 0.0f);
     public List<GameObject> list_of_boids;
     public float acceptance_radius = 100.0f;
+    public Terrain terrain;
 
     private AddBoids add_boids;
     private BoidsDestination boids_destination;
@@ -71,6 +72,7 @@ public class BoidsController : MonoBehaviour
             velocity = new Vector2(0.0f, 0.0f);
         }
         
-        //transform.position += new Vector3(velocity.x, transform.position.y, velocity.y);
+        transform.position += new Vector3(velocity.x, 0.0f, velocity.y);
+        transform.position = new Vector3(transform.position.x, terrain.SampleHeight(transform.position)+0.5f, transform.position.z);
     }
 }

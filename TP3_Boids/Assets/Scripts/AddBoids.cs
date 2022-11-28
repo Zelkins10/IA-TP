@@ -32,6 +32,7 @@ public class AddBoids : MonoBehaviour
             BoidsController controller = child.AddComponent<BoidsController>();
             controller.list_of_boids = children;
             controller.acceptance_radius = acceptance_radius;
+            controller.terrain = terrain;
 
             BoidsDestination destination = child.AddComponent<BoidsDestination>();
             destination.cam = cam;

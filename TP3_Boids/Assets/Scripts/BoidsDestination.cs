@@ -25,7 +25,7 @@ public class BoidsDestination : MonoBehaviour
             return (
                     position
                     - new Vector2(this_boid.transform.position.x, this_boid.transform.position.z)
-                ) / 1000;
+                ) / 100;
         }
         else
         {
