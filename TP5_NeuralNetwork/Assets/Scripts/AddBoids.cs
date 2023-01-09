@@ -9,20 +9,20 @@ public class AddBoids : MonoBehaviour
     public Camera cam;
     public GameObject cone;
     public GameObject cube;
-    public int number_of_boids = 100;
     public float vlim = 0.1f;
     public int distance_min = 5;
     public float time_to_start = 5.0f;
     public float game_of_life_time_rate = 3.0f;
+    public List<GameObject> list_of_cubes = new List<GameObject>();
+    public List<GameObject> list_of_cones = new List<GameObject>();
 
     private Terrain terrain;
 
     // Is static is a good way to do that ?
+    static public int number_of_boids = 100;
     public static List<List<GameObject>> lists_of_boids = new List<List<GameObject>>();
-    public static List<GameObject> list_of_cubes = new List<GameObject>();
-    public static List<GameObject> list_of_cones = new List<GameObject>();
     public static Dictionary<List<GameObject>, List<GameObject>> best_corresponding_boids =
-        new Dictionary<List<GameObject>, List<GameObject>>();
+        new Dictionary<List<GameObject>, List<GameObject>>(); // TODO : Rename this.
 
     void Start()
     {
@@ -93,6 +93,8 @@ public class AddBoids : MonoBehaviour
         foreach (GameObject boid in boids)
         {
             AlgoGen algogen = boid.AddComponent<AlgoGen>();
+
+            NeuralNetwork neural_network = boid.AddComponent<NeuralNetwork>();
 
             BoidsDestination destination = boid.AddComponent<BoidsDestination>();
             destination.cam = cam;

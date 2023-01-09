@@ -33,13 +33,14 @@ public class BoidsController : MonoBehaviour
         boids_limit_velocity = GetComponent<BoidsLimitVelocity>();
     }
 
-    void CalculateVelocity(Vector2 Vdes, Vector2 Vcen, Vector2 Vred, Vector2 Vmat)
+    void CalculateVelocity(Vector2 Vdes, Vector2 Vcen, Vector2 Vred, Vector2 Vmat, Vector2 VFight)
     {
         velocity += (
             Vdes / Terrain.activeTerrain.terrainData.size.x * 5.0f
             + Vcen / Terrain.activeTerrain.terrainData.size.z * 5.0f
             + Vred * 5.0f
             + Vmat * 5.0f
+            + VFight * 10.0f // TODO : Find the good value, 50 is too much maybe ? 
         );
     }
 
@@ -50,6 +51,7 @@ public class BoidsController : MonoBehaviour
         Vector2 Vcen = boids_center_of_mass.CenterOfMass();
         Vector2 Vred = boids_reduce_distance.ReduceDistance();
         Vector2 Vmat = boids_match_velocity.MatchVelocity();
+        Vector2 VFight = gameObject.GetComponent<NeuralNetwork>().VFight;
 
         Vector3 destination_position = new Vector3(
             boids_destination.position.x,
@@ -57,7 +59,7 @@ public class BoidsController : MonoBehaviour
             boids_destination.position.y
         );
 
-        CalculateVelocity(Vdes, Vcen, Vred, Vmat);
+        CalculateVelocity(Vdes, Vcen, Vred, Vmat, VFight);
 
         boids_limit_velocity.LimitVelocity();
 

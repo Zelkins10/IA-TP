@@ -25,6 +25,7 @@ public class BoidsDestination : MonoBehaviour
         }
         else
         {
+            // TODO : Different destination depending on boid type.
             return -new Vector2(transform.position.x, transform.position.z) / 50;
         }
     }
