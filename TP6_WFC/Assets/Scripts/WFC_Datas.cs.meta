@@ -1,0 +1,41 @@
+fileFormatVersion: 2
+guid: bade325187bb7b44fa6ffe89f669985e
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - FFFF1: {fileID: 919132149155446097, guid: bbda9e2681f51044b96b168b3b989ea6, type: 3}
+  - FFFF2: {fileID: 919132149155446097, guid: 3cbe12757891bfd42bbab586b24d7e63, type: 3}
+  - FFFF3: {fileID: 919132149155446097, guid: 5f090a9139ce9f841996c3f078099332, type: 3}
+  - FFFF4: {fileID: 919132149155446097, guid: aafd4aeb3ba16f942a4b103d7901e10b, type: 3}
+  - FFFF5: {fileID: 919132149155446097, guid: bd9a0dfc0f716eb46bcdbc3af4eeed39, type: 3}
+  - FFFF6: {fileID: 919132149155446097, guid: d9abb9a093db23a448ff9bf3f5e100b9, type: 3}
+  - FFFM: {fileID: 919132149155446097, guid: 253bf8db805dc25438804fc2146ccac2, type: 3}
+  - FFMF: {fileID: 919132149155446097, guid: 00a7e78bee7f4154b816ac1c5dd0489c, type: 3}
+  - FFMM: {fileID: 919132149155446097, guid: c32f25ae5b791744f81654bf4d7ceb1c, type: 3}
+  - FFSS: {fileID: 919132149155446097, guid: 46b69915cf83e86409e17019e38fce6e, type: 3}
+  - FMFF: {fileID: 919132149155446097, guid: f95ab47f9502b444899c0b30b537d9bc, type: 3}
+  - FMFM: {fileID: 919132149155446097, guid: e26a6fe0526801c45b8792fa09897cfa, type: 3}
+  - FMMM: {fileID: 919132149155446097, guid: b117119d59c269f4eb9f04626e21e5e2, type: 3}
+  - FSFS: {fileID: 919132149155446097, guid: d75fdcbb70dd079499cca5c793a32d49, type: 3}
+  - FSSS: {fileID: 919132149155446097, guid: ed9126017421bf74d90cbbc656aca486, type: 3}
+  - MFFF: {fileID: 919132149155446097, guid: 2bdcba6d57b237344b08005b3701b405, type: 3}
+  - MFMF: {fileID: 919132149155446097, guid: 35cc641502865f840a2e15e02d84048a, type: 3}
+  - MFMM: {fileID: 919132149155446097, guid: 74b1f02e6137bc4429176ea4b1f3dcab, type: 3}
+  - MMFF: {fileID: 919132149155446097, guid: 9173e99eb1d87c14ca041b705d059ce6, type: 3}
+  - MMFM: {fileID: 919132149155446097, guid: efa6e93c285efec488f6693e0e22677f, type: 3}
+  - MMMF: {fileID: 919132149155446097, guid: e629bad4bbb5a4043aefb28de09f6ecc, type: 3}
+  - SFSF: {fileID: 919132149155446097, guid: 19063ff8ff0e01045ba5383af09f0397, type: 3}
+  - SFSS: {fileID: 919132149155446097, guid: b6307f345904e0342bd2e5e67c68f8ac, type: 3}
+  - SSFF: {fileID: 919132149155446097, guid: 73addcd2701ad104aad074cb02d2471b, type: 3}
+  - SSFS: {fileID: 919132149155446097, guid: 65fb72db5b093444ba3f749138f0d2d5, type: 3}
+  - SSSF: {fileID: 919132149155446097, guid: 759ac23e66c99b9499b41e36c75dd5d3, type: 3}
+  - SSSS1: {fileID: 919132149155446097, guid: f1a5eb54b88556a4186aa7bafa62d3f4, type: 3}
+  - SSSS2: {fileID: 919132149155446097, guid: cee6d688549049949ae3b3c21a82df9e, type: 3}
+  - SSSS3: {fileID: 919132149155446097, guid: f944f6a6088e0814facc0a3b9e2ad920, type: 3}
+  - SSSS4: {fileID: 919132149155446097, guid: 014456fedfd98f34598df51a3d426c38, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

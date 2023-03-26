@@ -1,0 +1,150 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+
+public class WFC : MonoBehaviour
+{
+    private WFC_Datas datas;
+
+    void Start()
+    {
+        // Datas initialisation :
+        datas = GetComponent<WFC_Datas>();
+        WFC_Grid[,] grid = new WFC_Grid[3, 3];
+
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < grid.GetLength(1); j++)
+            {
+                grid[i, j] = new WFC_Grid()
+                {
+                    possible_terrains = new List<int>(),
+                    list_of_neighbors = new Dictionary<int, WFC_Grid>()
+                };
+                for (int k = 0; k < datas.list_of_terrains.Count; k++)
+                {
+                    grid[i, j].possible_terrains.Add(k);
+                }
+            }
+        }
+
+        int number_of_element_in_grid = grid.GetLength(0) * grid.GetLength(1);
+        int count = 0;
+        while (count < number_of_element_in_grid)
+        {
+            int[,] emptyCells = new int[number_of_element_in_grid, 2];
+            int emptyCount = 0;
+
+            for (int i = 0; i < grid.GetLength(0); i++)
+            {
+                for (int j = 0; j < grid.GetLength(1); j++)
+                {
+                    if (grid[i, j].value == -1)
+                    {
+                        emptyCells[emptyCount, 0] = i;
+                        emptyCells[emptyCount, 1] = j;
+                        emptyCount++;
+                    }
+                }
+            }
+
+            WFC_Grid current_grid = new WFC_Grid();
+            int current_i = -1;
+            int current_j = -1;
+
+            if (emptyCount > 0)
+            {
+                int randomIndex = Random.Range(0, emptyCount);
+                current_i = emptyCells[randomIndex, 0];
+                current_j = emptyCells[randomIndex, 1];
+                current_grid = grid[current_i, current_j];
+            }
+
+            if (current_grid.possible_terrains.Count > 0)
+            {
+                current_grid.value = Random.Range(0, current_grid.possible_terrains.Count);
+            }
+            else
+            {
+                current_grid.value = Random.Range(0, datas.list_of_terrains.Count);
+            }
+
+            ++count;
+
+            // Get the neighbors of this cell
+            current_grid.list_of_neighbors = new Dictionary<int, WFC_Grid>();
+            if (current_j > 0 && grid[current_i, current_j - 1].value == -1)
+            {
+                current_grid.list_of_neighbors.Add(0, grid[current_i, current_j - 1]);
+            }
+            if (current_i < grid.GetLength(0) - 1 && grid[current_i + 1, current_j].value == -1)
+            {
+                current_grid.list_of_neighbors.Add(1, grid[current_i + 1, current_j]);
+            }
+            if (current_j < grid.GetLength(1) - 1 && grid[current_i, current_j + 1].value == -1)
+            {
+                current_grid.list_of_neighbors.Add(2, grid[current_i, current_j + 1]);
+            }
+            if (current_i > 0 && grid[current_i - 1, current_j].value == -1)
+            {
+                current_grid.list_of_neighbors.Add(3, grid[current_i - 1, current_j]);
+            }
+
+            // Check all possible tiles and their compatibility with neighbors
+            foreach (KeyValuePair<int, WFC_Grid> neighbor_id in current_grid.list_of_neighbors)
+            {
+                List<int> compatible_terrains = new List<int>();
+                // Check if this tile is compatible with all neighbors
+                foreach (WFC_Terrain terrain in datas.list_of_terrains)
+                {
+                    // Debug.Log((neighbor_id.Key + 2) % 4);
+                    Debug.Log(current_grid.value);
+                    // Debug.Log(neighbor_id.Key);
+                    if (
+                        terrain.list_of_edges[(neighbor_id.Key + 2) % 4]
+                        == datas.list_of_terrains[current_grid.value].list_of_edges[neighbor_id.Key]
+                    )
+                    {
+                        compatible_terrains.Add(terrain.id);
+                    }
+                }
+                // TODO: Je pense que lorsque certains terrains sont choisis, il faudrait modifier
+                // la liste des terrains possibles de ses voisins, voire des voisins de ses voisins
+                // car après le choix est aléatoire parmi les terrains possibles donc il faut
+                // toujours que cette liste soient à jour à la fin de la boucle.
+                // Idée : tout tester étape par étape avec des debug.log pour voir si tout est bon.
+                if (compatible_terrains.Count != 0)
+                {
+                    neighbor_id.Value.possible_terrains = neighbor_id.Value.possible_terrains
+                        .Intersect(compatible_terrains)
+                        .ToList();
+                    if (neighbor_id.Value.possible_terrains.Count == 1)
+                    {
+                        neighbor_id.Value.value = neighbor_id.Value.possible_terrains[0];
+                        ++count;
+                    }
+                }
+            }
+        }
+
+        // Render terrains
+        for (int i = 0; i < grid.GetLength(0); i++)
+        {
+            for (int j = 0; j < grid.GetLength(1); j++)
+            {
+                GameObject gameObject = datas.list_of_terrains[grid[i, j].value].terrain;
+                if (gameObject != null)
+                {
+                    Vector3 position = new Vector3(
+                        2000.0f + 500.0f * i,
+                        0.0f,
+                        2000.0f + 500.0f * j
+                    );
+                    GameObject new_terrain = Instantiate(gameObject, position, Quaternion.identity);
+                    new_terrain.transform.localScale = new Vector3(100.0f, 100.0f, 100.0f);
+                }
+            }
+        }
+    }
+}
