@@ -17,6 +17,8 @@ public class BoidsController : MonoBehaviour
     private BoidsMatchVelocity boids_match_velocity;
     private BoidsLimitVelocity boids_limit_velocity;
 
+    public Vector2 REDUCE_DISTANCE = new Vector2();
+
     void Start()
     {
         velocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
@@ -48,11 +50,7 @@ public class BoidsController : MonoBehaviour
         Vector2 Vmat = boids_match_velocity.MatchVelocity();
         Vector2 VFight = gameObject.GetComponent<NeuralNetwork>().VFight;
 
-        Vector3 destination_position = new Vector3(
-            boids_destination.position.x,
-            transform.position.y,
-            boids_destination.position.y
-        );
+        REDUCE_DISTANCE = Vred;
 
         CalculateVelocity(Vdes, Vcen, Vred, Vmat, VFight);
 

@@ -12,8 +12,6 @@ public class AddBoids : MonoBehaviour
     public GameObject cube;
     public float vlim = 0.1f;
     public int distance_min = 5;
-    public float time_to_start = 5.0f;
-    public float game_of_life_time_rate = 3.0f;
     public List<GameObject> list_of_cubes = new List<GameObject>();
     public List<GameObject> list_of_cones = new List<GameObject>();
 
@@ -24,6 +22,9 @@ public class AddBoids : MonoBehaviour
     public static List<List<GameObject>> lists_of_boids = new List<List<GameObject>>();
     public static Dictionary<List<GameObject>, List<GameObject>> best_corresponding_boids =
         new Dictionary<List<GameObject>, List<GameObject>>(); // TODO : Rename this.
+
+    public static Vector2 cone_destination = new Vector2();
+    public static Vector2 cube_destination = new Vector2();
 
     void Start()
     {
@@ -36,8 +37,45 @@ public class AddBoids : MonoBehaviour
         lists_of_boids.Add(list_of_cones);
         GameOfLife game_of_life = gameObject.AddComponent<GameOfLife>();
         game_of_life.number_of_boids = number_of_boids;
-        game_of_life.time_to_start = time_to_start;
-        game_of_life.game_of_life_time_rate = game_of_life_time_rate;
+        game_of_life.time_to_start = Random.Range(30f, 45f);
+        game_of_life.game_of_life_time_rate = Random.Range(15f, 25f);
+
+        InvokeRepeating("SetDestination", 0f, Random.Range(20f, 40f));
+    }
+
+    void SetDestination()
+    {
+        Vector3 target_position_for_cone = GetRandomNavMeshPosition();
+        Vector3 target_position_for_cube = GetRandomNavMeshPosition();
+
+        cone_destination = new Vector2(target_position_for_cone.x, target_position_for_cone.z);
+        cube_destination = new Vector2(target_position_for_cube.x, target_position_for_cube.z);
+    }
+
+    Vector3 GetRandomNavMeshPosition()
+    {
+        Vector3 random_position = new Vector3(
+            Random.Range(4000, -4000),
+            0f,
+            Random.Range(-4000, 4000)
+        );
+        UnityEngine.AI.NavMeshHit hit;
+        if (
+            UnityEngine.AI.NavMesh.SamplePosition(
+                random_position,
+                out hit,
+                100.0f,
+                UnityEngine.AI.NavMesh.AllAreas
+            )
+        )
+        {
+            return hit.position;
+        }
+        else
+        {
+            // Si on ne peut pas trouver une position sur le NavMesh, on réessaie
+            return GetRandomNavMeshPosition();
+        }
     }
 
     void create_boids(int nb)
@@ -47,8 +85,8 @@ public class AddBoids : MonoBehaviour
             // Instantiate() needs real coordinates in world space
             WFC wfc = GameObject.Find("WFC").GetComponent<WFC>();
             Vector2 position = new Vector2(
-                Random.Range(-62.5F * (wfc.size_x - 1), 62.5F * (wfc.size_x - 1)),
-                Random.Range(-62.5F * (wfc.size_z - 1), 62.5F * (wfc.size_z - 1))
+                Random.Range(4750f, -4750f),
+                Random.Range(-4750f, 4750f)
             );
 
             GameObject character_prefab;
@@ -114,7 +152,7 @@ public class AddBoids : MonoBehaviour
             BoidsLimitVelocity limit_velocity = boid.AddComponent<BoidsLimitVelocity>();
             limit_velocity.vlim = vlim;
 
-            boid.AddComponent<UnityEngine.AI.NavMeshAgent>();
+            // boid.AddComponent<UnityEngine.AI.NavMeshAgent>();
         }
     }
 }

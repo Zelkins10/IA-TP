@@ -36,7 +36,10 @@ public class NeuralNetwork : MonoBehaviour
             List<GameObject> list_of_boids_in_group in AddBoids.best_corresponding_boids.Values.ToList()
         )
         {
-            if (list_of_boids_in_group.Contains(gameObject) && list_of_boids_in_group.Count > number_of_allies)
+            if (
+                list_of_boids_in_group.Contains(gameObject)
+                && list_of_boids_in_group.Count > number_of_allies
+            )
             {
                 number_of_allies = list_of_boids_in_group.Count();
             }
@@ -52,16 +55,21 @@ public class NeuralNetwork : MonoBehaviour
 
         foreach (List<GameObject> list_of_boids in AddBoids.lists_of_boids)
         {
-            if (list_of_boids == AddBoids.lists_of_boids[
+            if (
+                list_of_boids
+                == AddBoids.lists_of_boids[
                     (int)gameObject.GetComponent<BoidsController>().boid_type
-                ])
+                ]
+            )
             {
                 foreach (GameObject boid in list_of_boids)
                 {
-                    if (boid != null && 
-                        boid != gameObject && 
-                        Vector3.Distance(transform.position, boid.transform.position) 
-                        <= acceptance_radius)
+                    if (
+                        boid != null
+                        && boid != gameObject
+                        && Vector3.Distance(transform.position, boid.transform.position)
+                            <= acceptance_radius
+                    )
                     {
                         ++number_of_allies;
                         average_allies_compatibility += boid.GetComponent<AlgoGen>().compatibility;
@@ -75,14 +83,17 @@ public class NeuralNetwork : MonoBehaviour
             }
             foreach (GameObject boid in list_of_boids)
             {
-                if (Vector3.Distance(transform.position, boid.transform.position)
+                if (
+                    Vector3.Distance(transform.position, boid.transform.position)
                     <= acceptance_radius
                 )
                 {
                     ++number_of_enemies;
-                    if (boid != null && 
-                        Vector3.Distance(boid.transform.position, transform.position)
-                        < nearest_enemy_distance)
+                    if (
+                        boid != null
+                        && Vector3.Distance(boid.transform.position, transform.position)
+                            < nearest_enemy_distance
+                    )
                     {
                         nearest_enemy = boid;
                     }
@@ -108,7 +119,7 @@ public class NeuralNetwork : MonoBehaviour
 
         first_entry = number_of_allies - enemy_neural_network.number_of_allies;
         first_entry /= AddBoids.number_of_boids;
-        
+
         second_entry = average_allies_compatibility - average_enemies_compatibility;
 
         Uk = first_entry * first_weight + second_entry * second_weight;

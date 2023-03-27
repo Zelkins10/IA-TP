@@ -11,7 +11,6 @@ public class AlgoGen : MonoBehaviour
     public float humidity;
     public GameObject current_terrain;
     public float compatibility = 0.0f;
-    private BoidsController this_controller;
     public List<GameObject> list_of_boids;
 
     void Start()
@@ -19,7 +18,6 @@ public class AlgoGen : MonoBehaviour
         list_of_boids = AddBoids.lists_of_boids[
             (int)gameObject.GetComponent<BoidsController>().boid_type
         ];
-        this_controller = GetComponent<BoidsController>();
         if (temperature == default(float))
         {
             temperature = Random.Range(-20, 50);

@@ -25,7 +25,7 @@ public class WFC : MonoBehaviour
                     possible_terrains = new List<int>(),
                     list_of_neighbors = new Dictionary<int, WFC_Grid_element>()
                 };
-                if (i > 11 && i < 28 && j > 11 && j < 28)
+                if (i > 7 && i < 12 && j > 7 && j < 12)
                 {
                     grid[i, j].value = -2;
                 }
@@ -144,16 +144,16 @@ public class WFC : MonoBehaviour
                     if (gameObject != null)
                     {
                         Vector3 position = new Vector3(
-                            62.5F * (grid.GetLength(1) - 1) + 125.0f * -j,
+                            4750f + 500.0f * -j,
                             0.0f,
-                            -62.5F * (grid.GetLength(0) - 1) + 125.0f * i
+                            -4750f + 500.0f * i
                         );
                         GameObject new_terrain = Instantiate(
                             gameObject,
                             position,
                             Quaternion.identity
                         );
-                        new_terrain.transform.localScale = new Vector3(25.0f, 25.0f, 25.0f);
+                        new_terrain.transform.localScale = new Vector3(100.0f, 100.0f, 100.0f);
                         EnvironmentParameters environment =
                             new_terrain.AddComponent<EnvironmentParameters>();
                         EnvironmentParameters other_environment = datas.list_of_terrains[

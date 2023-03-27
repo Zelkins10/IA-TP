@@ -15,7 +15,9 @@ public class BoidsReduceDistance : MonoBehaviour
             {
                 if (boid != gameObject)
                 {
-                    if (Vector3.Distance(boid.transform.position, transform.position) < distance_min)
+                    if (
+                        Vector3.Distance(boid.transform.position, transform.position) < distance_min
+                    )
                     {
                         Vred -= new Vector2(
                             boid.transform.position.x - transform.position.x,

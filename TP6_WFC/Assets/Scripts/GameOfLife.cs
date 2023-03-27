@@ -31,14 +31,17 @@ public class GameOfLife : MonoBehaviour
         )
         {
             if (
-                list_of_boids_in_group.Count > number_of_boids / 20
-                || list_of_boids_in_group.Count == 1
+                (
+                    list_of_boids_in_group.Count > number_of_boids / 10
+                    || list_of_boids_in_group.Count == 1
+                )
+                && Random.Range(0, 2) == 1
             )
             {
                 delete_old_boids(list_of_boids_in_group, index);
             }
             else if (
-                list_of_boids_in_group.Count > number_of_boids / 50
+                list_of_boids_in_group.Count >= number_of_boids / 50
                 && list_of_boids_in_group.Count < number_of_boids / 20
             )
             {

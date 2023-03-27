@@ -7,26 +7,23 @@ public class BoidsDestination : MonoBehaviour
     public Camera cam;
     public Vector2 position = new Vector2(0.0f, 0.0f);
 
+    private BoidType boid_type;
+
+    private void Start()
+    {
+        boid_type = gameObject.GetComponent<BoidsController>().boid_type;
+    }
+
     public Vector2 Destination()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (boid_type == BoidType.Cone)
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                position = new Vector2(hit.point.x, hit.point.z);
-            }
+            position = AddBoids.cone_destination;
         }
-        if (position != new Vector2(0.0f, 0.0f))
+        else if (boid_type == BoidType.Cube)
         {
-            return (position - new Vector2(transform.position.x, transform.position.z)) / 50;
+            position = AddBoids.cube_destination;
         }
-        else
-        {
-            // TODO : Different destination depending on boid type.
-            return -new Vector2(transform.position.x, transform.position.z) / 50;
-        }
+        return (position - new Vector2(transform.position.x, transform.position.z)) / 50;
     }
 }
